@@ -71,6 +71,22 @@ class Trick
         $this->comments = new ArrayCollection();
     }
 
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'createdAt' => $this->getCreatedAt(),
+            'updatedAt' => $this->getUpdatedAt(),
+            'slug' => $this->getSlug(),
+            'groupName' => $this->getGroupName()->getName(),
+            'videos' => $this->getVideos(),
+            'images' => $this->getImages(),
+            'comments' => $this->getComments()
+        ];
+    }
+
     public function getId(): ?int
     {
         return $this->id;
