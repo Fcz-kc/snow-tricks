@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TrickRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -71,6 +72,10 @@ class Trick
         $this->comments = new ArrayCollection();
     }
 
+    /**
+     * Serialize the entity
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         return [
@@ -81,22 +86,71 @@ class Trick
             'updatedAt' => $this->getUpdatedAt(),
             'slug' => $this->getSlug(),
             'groupName' => $this->getGroupName()->getName(),
-            'videos' => $this->getVideos(),
-            'images' => $this->getImages(),
-            'comments' => $this->getComments()
+            'videos' => $this->getVideosSerialize(),
+            'images' => $this->getImagesSerialize(),
+            'comments' => $this->getCommentsSerialize()
         ];
     }
 
+    /**
+     * get the collection of videos
+     * @return array
+     */
+    public function getVideosSerialize(): array
+    {
+        $videos = [];
+        foreach ($this->getVideos() as $video) {
+            $videos[] = $video->jsonSerialize();
+        }
+        return $videos;
+    }
+
+    /**
+     * get the collection of images
+     * @return array
+     */
+    public function getImagesSerialize(): array
+    {
+        $images = [];
+        foreach ($this->getImages() as $image) {
+            $images[] = $image->jsonSerialize();
+        }
+        return $images;
+    }
+
+    /**
+     * get the collection of comments
+     * @return array
+     */
+    public function getCommentsSerialize(): array
+    {
+        $comments = [];
+        foreach ($this->getComments() as $comment) {
+            $comments[] = $comment->jsonSerialize();
+        }
+        return $comments;
+    }
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -104,11 +158,18 @@ class Trick
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * @param string $description
+     * @return $this
+     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -116,35 +177,56 @@ class Trick
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @param DateTimeInterface $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    /**
+     * @param DateTimeInterface|null $updatedAt
+     * @return $this
+     */
+    public function setUpdatedAt(?DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
+    /**
+     * @param string|null $slug
+     * @return $this
+     */
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
@@ -152,11 +234,18 @@ class Trick
         return $this;
     }
 
+    /**
+     * @return Group|null
+     */
     public function getGroupName(): ?Group
     {
         return $this->groupName;
     }
 
+    /**
+     * @param Group|null $groupName
+     * @return $this
+     */
     public function setGroupName(?Group $groupName): self
     {
         $this->groupName = $groupName;
@@ -172,6 +261,10 @@ class Trick
         return $this->videos;
     }
 
+    /**
+     * @param Video $video
+     * @return $this
+     */
     public function addVideo(Video $video): self
     {
         if (!$this->videos->contains($video)) {
@@ -182,6 +275,10 @@ class Trick
         return $this;
     }
 
+    /**
+     * @param Video $video
+     * @return $this
+     */
     public function removeVideo(Video $video): self
     {
         if ($this->videos->removeElement($video)) {
@@ -202,6 +299,10 @@ class Trick
         return $this->images;
     }
 
+    /**
+     * @param Image $image
+     * @return $this
+     */
     public function addImage(Image $image): self
     {
         if (!$this->images->contains($image)) {
@@ -212,6 +313,10 @@ class Trick
         return $this;
     }
 
+    /**
+     * @param Image $image
+     * @return $this
+     */
     public function removeImage(Image $image): self
     {
         if ($this->images->removeElement($image)) {
@@ -232,6 +337,10 @@ class Trick
         return $this->comments;
     }
 
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -242,6 +351,10 @@ class Trick
         return $this;
     }
 
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->removeElement($comment)) {
