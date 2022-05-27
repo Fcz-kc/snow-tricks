@@ -40,9 +40,9 @@ class Comment
     public function jsonSerialize() : array
     {
         return [
-            'id' => $this->id,
-            'comment' => $this->comment,
-            'createdAt' => $this->createdAt
+            'id' => $this->getId(),
+            'comment' => $this->getComment(),
+            'createdAt' => date_format($this->getCreatedAt(), 'd/m/Y - H:i:m')
         ];
     }
 

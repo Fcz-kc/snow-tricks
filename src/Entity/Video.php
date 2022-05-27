@@ -40,9 +40,9 @@ class Video
     public function jsonSerialize(): array
     {
         return [
-            'id' => $this->id,
-            'url' => $this->url,
-            'createdAt' => $this->createdAt,
+            'id' => $this->getId(),
+            'url' => $this->getUrl(),
+            'createdAt' => date_format($this->getCreatedAt(), 'd/m/Y - H:i:m'),
         ];
     }
 

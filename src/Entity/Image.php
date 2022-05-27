@@ -45,10 +45,10 @@ class Image
     public function jsonSerialize(): array
     {
         return [
-            'id' => $this->id,
-            'path' => $this->path,
-            'name' => $this->name,
-            'createdAt' => $this->createdAt,
+            'id' => $this->getId(),
+            'path' => $this->getPath(),
+            'name' => $this->getName(),
+            'createdAt' => date_format($this->getCreatedAt(), 'd/m/Y - H:i:m'),
         ];
     }
 

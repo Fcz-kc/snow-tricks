@@ -42,8 +42,8 @@ class Group
     public function jsonSerialize(): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id' => $this->getId(),
+            'name' => $this->getName(),
         ];
     }
 
