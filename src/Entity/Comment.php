@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,16 +33,39 @@ class Comment
      */
     private $trick;
 
+    /**
+     * Serialize the entity
+     * @return array
+     */
+    public function jsonSerialize() : array
+    {
+        return [
+            'id' => $this->getId(),
+            'comment' => $this->getComment(),
+            'createdAt' => date_format($this->getCreatedAt(), 'd/m/Y - H:i:m')
+        ];
+    }
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getComment(): ?string
     {
         return $this->comment;
     }
 
+    /**
+     * @param string $comment
+     * @return $this
+     */
     public function setComment(string $comment): self
     {
         $this->comment = $comment;
@@ -49,23 +73,37 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @param DateTimeInterface $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
+    /**
+     * @return Trick|null
+     */
     public function getTrick(): ?Trick
     {
         return $this->trick;
     }
 
+    /**
+     * @param Trick|null $trick
+     * @return $this
+     */
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
