@@ -186,14 +186,14 @@ use Traversable;
       * @param int $id
       * @param $data
       * @param bool $flush
-      * @return object
+      * @return object|null
       * @throws EntityNotFoundException
       * @throws ExceptionInterface
       */
-     public function update(int $id, $data, bool $flush = true): object
+     public function update(int $id, $data, bool $flush = true): ?object
      {
         $row = $this->findOne($id);
-        $this->denormalize($row, $data);
+        $this->denormalize($data, $row);
 
         if ($flush) {
             $this->entityManager->flush();
@@ -253,11 +253,10 @@ use Traversable;
     /**
      * @param $data
      * @param null $row
-     *
-     * @return object
+     * @return mixed
      * @throws ExceptionInterface
      */
-    protected function denormalize($data, $row = null): object
+    protected function denormalize($data, $row = null): mixed
     {
         if (!$row) {
             $row = $this->serializer->denormalize($data, $this->className, null, [
