@@ -36,7 +36,7 @@ class Trick
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $updatedAt;
 
@@ -44,11 +44,6 @@ class Trick
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $slug;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Group::class, cascade={"persist", "remove"})
-     */
-    private $groupName;
 
     /**
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick")
@@ -64,6 +59,11 @@ class Trick
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick")
      */
     private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="tricks")
+     */
+    private $groupName;
 
     public function __construct()
     {
@@ -82,10 +82,10 @@ class Trick
             'id' => $this->getId(),
             'name' => $this->getName(),
             'description' => $this->getDescription(),
-            'createdAt' => $this->getCreatedAt(),
-            'updatedAt' => $this->getUpdatedAt(),
+            'createdAt' => date_format($this->getCreatedAt(), 'd/m/Y - H:i:m'),
+            'updatedAt' => date_format($this->getUpdatedAt(), 'd/m/Y - H:i:m'),
             'slug' => $this->getSlug(),
-            'groupName' => $this->getGroupName()->getName(),
+            'groupName' => $this->getGroupName()?->jsonSerialize(),
             'videos' => $this->getVideosSerialize(),
             'images' => $this->getImagesSerialize(),
             'comments' => $this->getCommentsSerialize()
@@ -205,10 +205,10 @@ class Trick
     }
 
     /**
-     * @param DateTimeInterface|null $updatedAt
+     * @param DateTimeInterface $updatedAt
      * @return $this
      */
-    public function setUpdatedAt(?DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -230,25 +230,6 @@ class Trick
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * @return Group|null
-     */
-    public function getGroupName(): ?Group
-    {
-        return $this->groupName;
-    }
-
-    /**
-     * @param Group|null $groupName
-     * @return $this
-     */
-    public function setGroupName(?Group $groupName): self
-    {
-        $this->groupName = $groupName;
 
         return $this;
     }
@@ -363,6 +344,18 @@ class Trick
                 $comment->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGroupName(): ?Group
+    {
+        return $this->groupName;
+    }
+
+    public function setGroupName(?Group $groupName): self
+    {
+        $this->groupName = $groupName;
 
         return $this;
     }

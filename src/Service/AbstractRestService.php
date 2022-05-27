@@ -2,12 +2,16 @@
 
 namespace App\Service;
 
+use App\Normalizer\AssociationNormalizer;
 use ArrayObject;
 use Countable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Traversable;
@@ -52,8 +56,11 @@ use Traversable;
     {
         $this->repository = $repository;
         $this->entityManager = $entityManager;
-        $this->serializer = new Serializer([new ObjectNormalizer()]);
         $this->className = $this->repository->getClassName();
+
+        $objectNormalizer = new ObjectNormalizer(null, null, null, new ReflectionExtractor());
+        $associationNormalizer = new AssociationNormalizer($this->entityManager, null, null, null, new ReflectionExtractor());
+        $this->serializer = new Serializer([new DateTimeNormalizer(), $associationNormalizer, $objectNormalizer], [new JsonEncoder()]);
     }
 
     /**
@@ -89,10 +96,10 @@ use Traversable;
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
 
-    /**
-     * @param array $criteria
-     * @return object
-     */
+     /**
+      * @param array $criteria
+      * @return object|null
+      */
     public function findOneBy(array $criteria): ?object
     {
         return $this->repository->findOneBy($criteria);
@@ -167,7 +174,7 @@ use Traversable;
      */
     public function create($data): object
     {
-        $row = $this->serializer->denormalize($data, 'json');
+        $row = $this->denormalize($data);
 
         $this->entityManager->persist($row);
         $this->entityManager->flush();
@@ -211,7 +218,7 @@ use Traversable;
      * @param $rows
      * @return array|mixed
      */
-    public function serialize($rows)
+    public function serialize($rows): mixed
     {
         $json = [];
         $isCollection = is_array($rows);
@@ -232,10 +239,9 @@ use Traversable;
       * @return array|ArrayObject|bool|Countable|float|int|string|Traversable|null
       * @throws ExceptionInterface
       */
-     public function normalize(
-         $row,
-         array $attributes = []
-     ) {
+     public function normalize($row, array $attributes = []):
+     Countable|float|Traversable|int|bool|ArrayObject|array|string|null
+     {
          return $this->serializer->normalize($row, null, [
              ObjectNormalizer::ATTRIBUTES => $attributes,
              ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($reference) {
