@@ -6,10 +6,16 @@ use App\Repository\TrickRepository;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @UniqueEntity(
+ *  fields={"name", "slug"},
+ *  message="This name is aleady used"
+ * )
  */
 class Trick
 {
@@ -90,45 +96,6 @@ class Trick
             'images' => $this->getImagesSerialize(),
             'comments' => $this->getCommentsSerialize()
         ];
-    }
-
-    /**
-     * get the collection of videos
-     * @return array
-     */
-    public function getVideosSerialize(): array
-    {
-        $videos = [];
-        foreach ($this->getVideos() as $video) {
-            $videos[] = $video->jsonSerialize();
-        }
-        return $videos;
-    }
-
-    /**
-     * get the collection of images
-     * @return array
-     */
-    public function getImagesSerialize(): array
-    {
-        $images = [];
-        foreach ($this->getImages() as $image) {
-            $images[] = $image->jsonSerialize();
-        }
-        return $images;
-    }
-
-    /**
-     * get the collection of comments
-     * @return array
-     */
-    public function getCommentsSerialize(): array
-    {
-        $comments = [];
-        foreach ($this->getComments() as $comment) {
-            $comments[] = $comment->jsonSerialize();
-        }
-        return $comments;
     }
 
     /**
@@ -234,12 +201,79 @@ class Trick
         return $this;
     }
 
+    public function getGroupName(): ?Group
+    {
+        return $this->groupName;
+    }
+
+    public function setGroupName(?Group $groupName): self
+    {
+        $this->groupName = $groupName;
+
+        return $this;
+    }
+
+    /**
+     * get the collection of videos
+     * @return array
+     */
+    public function getVideosSerialize(): array
+    {
+        $videos = [];
+        foreach ($this->getVideos() as $video) {
+            $videos[] = $video->jsonSerialize();
+        }
+        return $videos;
+    }
+
     /**
      * @return Collection<int, Video>
      */
     public function getVideos(): Collection
     {
         return $this->videos;
+    }
+
+    /**
+     * get the collection of images
+     * @return array
+     */
+    public function getImagesSerialize(): array
+    {
+        $images = [];
+        foreach ($this->getImages() as $image) {
+            $images[] = $image->jsonSerialize();
+        }
+        return $images;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    /**
+     * get the collection of comments
+     * @return array
+     */
+    public function getCommentsSerialize(): array
+    {
+        $comments = [];
+        foreach ($this->getComments() as $comment) {
+            $comments[] = $comment->jsonSerialize();
+        }
+        return $comments;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
     }
 
     /**
@@ -273,14 +307,6 @@ class Trick
     }
 
     /**
-     * @return Collection<int, Image>
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    /**
      * @param Image $image
      * @return $this
      */
@@ -311,14 +337,6 @@ class Trick
     }
 
     /**
-     * @return Collection<int, Comment>
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    /**
      * @param Comment $comment
      * @return $this
      */
@@ -344,18 +362,6 @@ class Trick
                 $comment->setTrick(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getGroupName(): ?Group
-    {
-        return $this->groupName;
-    }
-
-    public function setGroupName(?Group $groupName): self
-    {
-        $this->groupName = $groupName;
 
         return $this;
     }
