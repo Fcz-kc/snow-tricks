@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="background-image">
+            <img class="img-fluid"
+                 src="{{ asset('img/background.jpg') }}"
+                 alt="background">
+        </div>
+        <div class="row">
+            {% for trick in items %}
+                <div class="col-md-3">
+                    <div class="card mt-2">
+                        <img src="https://picsum.photos/200/100?random=1">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ trick.name }}</h5>
+                            <p class="card-text">bla</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row mt-3">
+            {% include'shared/_test.html.twig' with {
+                'color': 'primary',
+                'icon': 'fas fa-home',
+                'text': 'Tunc diversis quo congregati locante conscius qui qui indumentum usibus ita indumentum est eiusdem congregati.'
+            } %}
+            {% include'shared/_test.html.twig' with {
+                'color': 'success',
+                'icon': 'fas fa-check',
+                'text': 'Tunc diversis quo congregati locante conscius qui qui indumentum usibus ita indumentum est eiusdem congregati.'
+            } %}
+            {% include'shared/_test.html.twig' with {
+                'color': 'warning',
+                'icon': 'fas fa-lock',
+                'text': 'Tunc diversis quo congregati locante conscius qui qui indumentum usibus ita indumentum est eiusdem congregati.'
+            } %}
+
+        </div>
+    </div>
+{% endblock %}
