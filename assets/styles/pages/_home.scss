@@ -3,3 +3,27 @@
 .list {
     margin-top: 2rem !important;
 }
+
+.sentence {
+    font-family: 'Notable', sans-serif;
+    color: $white;
+    font-size: 6.5rem;
+    text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    .mobile-img {
+        height: 15.5rem;
+    }
+
+    .sentence {
+        font-size: 2rem;
+        text-shadow: 2px 1px 0px #fff, 4.5px 4px 0px rgba(0,0,0,0.15);
+    }
+}
