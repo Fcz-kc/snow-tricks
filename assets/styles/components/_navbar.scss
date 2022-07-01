@@ -1,0 +1,37 @@
+@import '../_variables.scss';
+
+#desktop {
+    display: block !important;
+}
+
+#mobile {
+    display: none !important;
+}
+
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    #desktop {
+        display: block !important;
+    }
+    #mobile {
+        display: none !important;
+    }
+
+    footer {
+        display: block;
+    }
+}
+@media only screen and (max-width: 600px) {
+    #mobile {
+        display: block !important;
+    }
+    #desktop {
+        display: none !important;
+    }
+
+    footer {
+        display: none !important;
+    }
+}
+

@@ -28,7 +28,7 @@ class HomeController extends AbstractRestController
      */
     public function index()
     {
-        $items = $this->service->findBy([], ['createdAt' => 'DESC'], 8, 0);
+        $items = $this->service->findBy([], ['createdAt' => 'DESC'], 12, 0);
         return $this->render('layout/home.html.twig', [
             'items' => $items
         ]);
