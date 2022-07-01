@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container center m-5">
+        <div class="card center-card border border-4">
+            <div class="card-body">
+                <div class="container text-center">
+                    <div class="form-group mb-4">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="register" id="username">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="register" id="email">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="register" id="password">
+                    </div>
+                    <a href="#" class="btn btn-primary">Create an account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -29,6 +29,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
             $trick->setName('Trick ' . $i)
                 ->setDescription($faker->sentence())
                 ->setCreatedAt($faker->dateTimeBetween('-1 years', 'now'))
+                ->setUpdatedAt($faker->dateTimeBetween('-1 years', 'now'))
                 ->addVideo($this->getReference('video_' . $i))
                 ->setGroupName($faker->randomElement($groups));
             $tricks[] = $trick;

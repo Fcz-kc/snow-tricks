@@ -1,0 +1,15 @@
+@import '../_variables.scss';
+
+.register {
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    padding-top: 10px;
+    margin: 0 100px;
+    border: 0;
+    border-bottom: black solid 1px;
+    &:focus {
+        outline: none !important;
+        border-bottom: black solid 2px;
+    }
+}

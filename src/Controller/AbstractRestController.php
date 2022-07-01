@@ -51,6 +51,7 @@ abstract class AbstractRestController extends AbstractController
      */
     public function findOne($id): JsonResponse
     {
+        dd($id);
         try {
             $res = null;
             $row = $this->service->findOne($id);
