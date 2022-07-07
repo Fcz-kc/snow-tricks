@@ -18,10 +18,11 @@
         display: none !important;
     }
 
-    footer {
+    #footer {
         display: block;
     }
 }
+
 @media only screen and (max-width: 600px) {
     #mobile {
         display: block !important;
@@ -30,7 +31,7 @@
         display: none !important;
     }
 
-    footer {
+    #footer {
         display: none !important;
     }
 }
