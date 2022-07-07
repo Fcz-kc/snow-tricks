@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="background-image position-relative">
+    <img class="img-fluid mobile-img w-100"
+         src="{{ asset('build/images/background2.jpg') }}"
+         alt="background">
+    <div>
+       <span class="edit p-2 shadow">
+          <i class="fa-solid fa-pencil text-secondary fa-sm me-4"></i>
+          <i class="fa-solid fa-trash-can fa-sm text-danger"></i>
+       </span>
+    </div>
+    <h1 class="sentence-detail"> Trick name</h1>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-center mt-5" style="display: none!important;">
+        <a id="loadMoreBTN">
+            <button class="btn btn-primary ">
+                <span class="text-lowercase small"> See Medias</span>
+            </button>
+        </a>
+    </div>
+    <div class="row" id="trickList">
+        {% for trick in items %}
+            <div class="col-sm-0 col-md-2">
+                <div class="card list border-0">
+                    <img src="https://picsum.photos/200/100?random=1">
+                    <div class="card-body">
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <h5 class="card-title">
+
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <p class="paragraph-detail">
+            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto
+                consectetur, corporis dolores doloribus exercitationem fugiat fugit id magni minus neque
+                nostrum perferendis praesentium, quia temporibus vel voluptatibus? Placeat, quidem.
+            </span>
+        <span>Aliquid commodi excepturi illum laudantium, nemo nulla possimus quae quis rem repellat
+                reprehenderit sit? Adipisci asperiores consectetur deserunt eos harum incidunt minus quae qui quos,
+                rem rerum saepe sapiente vero!
+            </span>
+        <span>A asperiores beatae commodi consectetur culpa
+                dolor esse facilis ipsam maiores maxime molestiae nisi nobis omnis, perspiciatis quibusdam
+                quis, quod reiciendis repellendus reprehenderit tempora unde veritatis vero vitae
+                voluptas voluptate!
+            </span>
+    </p>
+    <div class="container detail-block">
+        <div class="d-flex justify-content-between mb-4">
+            <span class="small text-muted pe-3">
+                Group 5
+            </span>
+            <span class="small text-muted pe-3">
+                Published by Nyilah
+            </span>
+            <span class="small text-muted pe-3">
+                Created at 21/07/2020
+            </span>
+            <span class="small text-muted">
+                Update at 21/12/2020
+            </span>
+        </div>
+        <div class="row d-flex align-self-center mb-5">
+            <div class="col-md-9 col-sm-12 mb-2">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <button class="btn btn-primary">
+                    <span class="text-lowercase small "> Leave a comment</span>
+                </button>
+            </div>
+        </div>
+
+        {#
+        Comments
+        #}
+
+        <div class="row">
+
+            <div class=" d-flex flex-row align-self-center mb-3">
+                <img src="https://xsgames.co/randomusers/avatar.php?g=male"
+                     class="img-fluid rounded-circle border border-2"
+                     style="width: 40px" ;/>
+                <p class="small ps-3 m-0">
+                    lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto je ne sais pas
+                </p>
+            </div>
+            <div class=" d-flex flex-row align-self-center mb-3">
+                <img src="https://xsgames.co/randomusers/avatar.php?g=female"
+                     class="img-fluid rounded-circle border border-2"
+                     style="width: 40px" ;/>
+                <p class="small ps-3 m-0">
+                    lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto je ne sais pas
+                </p>
+            </div>
+            <div class=" d-flex flex-row align-self-center mb-3">
+                <img src="https://xsgames.co/randomusers/avatar.php?g=male"
+                     class="img-fluid rounded-circle border border-2"
+                     style="width: 40px" ;/>
+                <p class="small ps-3 m-0">
+                    lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto je ne sais pas
+                </p>
+            </div>
+            <div class=" d-flex flex-row align-self-center mb-3">
+                <img src="https://xsgames.co/randomusers/avatar.php?g=female"
+                     class="img-fluid rounded-circle border border-2"
+                     style="width: 40px" ;/>
+                <p class="small ps-3 m-0">
+                    lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto je ne sais pas
+                </p>
+            </div>
+
+            <div class="row mt-3">
+                <div class="d-flex justify-content-center">
+                    <a id="loadMoreBTN">
+                        <button class="btn btn-primary ">
+                            <span class="text-lowercase small"> Load more</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
