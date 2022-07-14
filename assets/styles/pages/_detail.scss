@@ -13,6 +13,7 @@
 }
 
 .edit {
+    background-color: rgba(221, 221, 221, 0.38);
     position: absolute;
     top: 7%;
     right: -1%;
@@ -50,5 +51,11 @@
 
     .detail-block {
         padding: 0;
+        margin: 0;
+    }
+
+    .btn-mobile {
+        display: flex !important;
+        justify-content: center !important;
     }
 }

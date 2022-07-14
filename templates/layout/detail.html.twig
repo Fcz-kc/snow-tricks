@@ -1,26 +1,24 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div class="background-image position-relative">
+<div class="background-image position-relative mb-4">
     <img class="img-fluid mobile-img w-100"
-         src="{{ asset('build/images/background2.jpg') }}"
+         src="{{ asset('build/images/background.jpg') }}"
          alt="background">
     <div>
        <span class="edit p-2 shadow">
-          <i class="fa-solid fa-pencil text-secondary fa-sm me-4"></i>
+          <i class="fa-solid fa-pencil fa-sm me-4"></i>
           <i class="fa-solid fa-trash-can fa-sm text-danger"></i>
        </span>
     </div>
     <h1 class="sentence-detail"> Trick name</h1>
 </div>
 <div class="container">
-    <div class="d-flex justify-content-center mt-5" style="display: none!important;">
-        <a id="loadMoreBTN">
-            <button class="btn btn-primary ">
-                <span class="text-lowercase small"> See Medias</span>
+    <div class="d-flex justify-content-center">
+            <button class="btn btn-primary "  style="display: block!important;">
+                <span class="text-lowercase small px-2"> See Medias</span>
             </button>
-        </a>
     </div>
-    <div class="row" id="trickList">
+    <div class="row" id="trickList" style="display: none!important;">
         {% for trick in items %}
             <div class="col-sm-0 col-md-2">
                 <div class="card list border-0">
@@ -70,7 +68,7 @@
             <div class="col-md-9 col-sm-12 mb-2">
                 <input type="text" class="form-control">
             </div>
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-3 col-sm-12 btn-mobile">
                 <button class="btn btn-primary">
                     <span class="text-lowercase small "> Leave a comment</span>
                 </button>
@@ -82,7 +80,6 @@
         #}
 
         <div class="row">
-
             <div class=" d-flex flex-row align-self-center mb-3">
                 <img src="https://xsgames.co/randomusers/avatar.php?g=male"
                      class="img-fluid rounded-circle border border-2"
@@ -127,4 +124,5 @@
             </div>
         </div>
     </div>
+</div>
     {% endblock %}
